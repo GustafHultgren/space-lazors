@@ -30,7 +30,9 @@ window.addEventListener('keyup', (event) => {
 const MAX_POS = 100
 const MAX_SPEED = 10
 const DAMPING_FACTOR = 0.25 // Adjust this value to control the bounce effect
-const BOUNCE_THRESHOLD = 0.01 * MAX_SPEED
+const BOUNCE_THRESHOLD = 0.005 * MAX_SPEED
+const MIDDLE_POS = MAX_POS / 2
+const RETURN_ACCELERATION = 0.002 // Adjust this value to control the return speed
 
 let pos = 50
 let speed = 0
@@ -42,7 +44,14 @@ setInterval(() => {
   } else if (currentButtonPressed === 'ArrowRight') {
     acceleration = 0.1
   } else {
-    acceleration = 0
+    // Apply acceleration towards the middle position
+    if (pos < MIDDLE_POS) {
+      acceleration = RETURN_ACCELERATION
+    } else if (pos > MIDDLE_POS) {
+      acceleration = -RETURN_ACCELERATION
+    } else {
+      acceleration = 0
+    }
   }
 
   if (pos <= 0) {
