@@ -29,10 +29,11 @@ window.addEventListener('keyup', (event) => {
 
 const MAX_POS = 100
 const MAX_SPEED = 10
+const DAMPING_FACTOR = 0.3 // Adjust this value to control the bounce effect
 
 let pos = 50
 let speed = 0
-let acceleration = 0;
+let acceleration = 0
 
 setInterval(() => {
   if (currentButtonPressed === 'ArrowLeft') {
@@ -43,10 +44,12 @@ setInterval(() => {
     acceleration = 0
   }
 
-  if (pos === 0) {
-    speed = Math.max(0, speed)
-  } else if (pos === MAX_POS) {
-    speed = Math.min(0, speed)
+  if (pos <= 0) {
+    pos = 0
+    speed = -speed * DAMPING_FACTOR
+  } else if (pos >= MAX_POS) {
+    pos = MAX_POS
+    speed = -speed * DAMPING_FACTOR
   }
 
   speed = Math.max(-MAX_SPEED, Math.min(MAX_SPEED, speed + acceleration))
