@@ -29,7 +29,8 @@ window.addEventListener('keyup', (event) => {
 
 const MAX_POS = 100
 const MAX_SPEED = 10
-const DAMPING_FACTOR = 0.3 // Adjust this value to control the bounce effect
+const DAMPING_FACTOR = 0.25 // Adjust this value to control the bounce effect
+const BOUNCE_THRESHOLD = 0.01 * MAX_SPEED
 
 let pos = 50
 let speed = 0
@@ -46,10 +47,18 @@ setInterval(() => {
 
   if (pos <= 0) {
     pos = 0
-    speed = -speed * DAMPING_FACTOR
+    if (Math.abs(speed) >= BOUNCE_THRESHOLD) {
+      speed = -speed * DAMPING_FACTOR
+    } else {
+      speed = 0
+    }
   } else if (pos >= MAX_POS) {
     pos = MAX_POS
-    speed = -speed * DAMPING_FACTOR
+    if (Math.abs(speed) >= BOUNCE_THRESHOLD) {
+      speed = -speed * DAMPING_FACTOR
+    } else {
+      speed = 0
+    }
   }
 
   speed = Math.max(-MAX_SPEED, Math.min(MAX_SPEED, speed + acceleration))
