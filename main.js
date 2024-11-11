@@ -8,7 +8,8 @@ const app = document.querySelector('#app')
 
 app.innerHTML = `
   <h1 class="title">Space Lazors</h1>
-  <p class="score">Score: <span class="points">0</span></p>
+  <p class="score">Score: <span id="points">0</span></p>
+  <p class="hp">HP: <span id="health">100</span>&nbsp;❤️</p>
 
   <div class="ship">
     <div style="transform: rotate(-45deg) translateX(-8px); position: relative;">
@@ -18,6 +19,8 @@ app.innerHTML = `
 
   <footer>Use the arrow keys to move and space to shoot</footer>
 `
+
+let health = 10
 let score = 0
 let currentArrowPressed = null
 let isFiring = false
@@ -117,7 +120,7 @@ function drawLasers() {
       laser.element.remove()
       lasers.splice(lasers.indexOf(laser), 1)
 
-      incrementScore()
+      setScore()
     } else {
       laser.element.style.bottom = `calc(${laser.posY}vh + ${SHIP_OFFSET_Y} + ${SHIP_HEIGHT})`
       laser.element.style.left = `calc(${laser.posX}vw + ${SHIP_WIDTH} / 2)`
@@ -125,9 +128,20 @@ function drawLasers() {
   }
 }
 
-function incrementScore() {
-  score += 1
-  document.querySelector('.points').textContent = score
+function setScore(value) {
+  score = value ?? score + 1
+  document.getElementById('points').textContent = score
+}
+
+function setHealth(value) {
+  health = value
+
+  if (health <= 0) {
+    alert('Game Over')
+    location.reload()
+  }
+
+  document.getElementById('health').textContent = value
 }
 
 function spawnAlien() {
@@ -159,10 +173,12 @@ function drawAliens() {
     if (alien.posY <= 0) {
       alien.element.remove()
       aliens.splice(aliens.indexOf(alien), 1)
-    }
 
-    alien.element.style.bottom = `calc(${alien.posY}vh + ${SHIP_OFFSET_Y} + ${SHIP_HEIGHT})`
-    alien.element.style.left = `calc(${alien.posX}vw + ${SHIP_WIDTH} / 2)`
+      setHealth(health - 1)
+    } else {
+      alien.element.style.bottom = `calc(${alien.posY}vh + ${SHIP_OFFSET_Y} + ${SHIP_HEIGHT})`
+      alien.element.style.left = `calc(${alien.posX}vw + ${SHIP_WIDTH} / 2)`
+    }
   }
 }
 

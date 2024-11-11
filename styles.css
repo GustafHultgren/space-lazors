@@ -39,9 +39,10 @@ body,
   font-family: fantasy, sans-serif;
 }
 
-.score {
+.score, .hp {
   margin-left: 4px;
 }
+
 
 footer {
   position: fixed;
