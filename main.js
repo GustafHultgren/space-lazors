@@ -56,6 +56,7 @@ let shipPos = 50
 let shipSpeed = 0
 let shipAcceleration = 0
 
+const aliens = []
 const lasers = []
 
 let lastFire = Date.now()
@@ -94,12 +95,28 @@ function drawLasers() {
       lasers.splice(lasers.indexOf(laser), 1)
     }
 
-    laser.element.style.bottom = `calc(${laser.posY}vh + ${SHIP_OFFSET_Y} + ${SHIP_HEIGHT})`
-    laser.element.style.left = `calc(${laser.posX}vw + ${SHIP_WIDTH} / 2)`
+    const collidingAlienIndex = aliens.findIndex(alien => {
+      const laserRect = laser.element.getBoundingClientRect()
+      const alienRect = alien.element.getBoundingClientRect()
+
+      return laserRect.left < alienRect.right &&
+        laserRect.right > alienRect.left &&
+        laserRect.top < alienRect.bottom &&
+        laserRect.bottom > alienRect.top
+    })
+
+    if (collidingAlienIndex !== -1) {
+      const [collidingAlien] = aliens.splice(collidingAlienIndex, 1)
+      collidingAlien.element.remove()
+
+      laser.element.remove()
+      lasers.splice(lasers.indexOf(laser), 1)
+    } else {
+      laser.element.style.bottom = `calc(${laser.posY}vh + ${SHIP_OFFSET_Y} + ${SHIP_HEIGHT})`
+      laser.element.style.left = `calc(${laser.posX}vw + ${SHIP_WIDTH} / 2)`
+    }
   }
 }
-
-const aliens = []
 
 function spawnAlien() {
   const element = document.createElement('div')
