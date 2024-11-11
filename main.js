@@ -7,13 +7,18 @@ const SHIP_OFFSET_Y = getComputedStyle(root).getPropertyValue('--ship-offset-y')
 const app = document.querySelector('#app')
 
 app.innerHTML = `
+  <h1 class="title">Space Lazors</h1>
+  <p class="score">Score: <span class="points">0</span></p>
+
   <div class="ship">
     <div style="transform: rotate(-45deg) translateX(-8px); position: relative;">
-     🚀
+      🚀
     </div>
   </div>
-`
 
+  <footer>Use the arrow keys to move and space to shoot</footer>
+`
+let score = 0
 let currentArrowPressed = null
 let isFiring = false
 
@@ -111,11 +116,18 @@ function drawLasers() {
 
       laser.element.remove()
       lasers.splice(lasers.indexOf(laser), 1)
+
+      incrementScore()
     } else {
       laser.element.style.bottom = `calc(${laser.posY}vh + ${SHIP_OFFSET_Y} + ${SHIP_HEIGHT})`
       laser.element.style.left = `calc(${laser.posX}vw + ${SHIP_WIDTH} / 2)`
     }
   }
+}
+
+function incrementScore() {
+  score += 1
+  document.querySelector('.points').textContent = score
 }
 
 function spawnAlien() {
