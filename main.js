@@ -7,7 +7,8 @@ const SHIP_OFFSET_Y = getComputedStyle(root).getPropertyValue('--ship-offset-y')
 const app = document.querySelector('#app')
 
 app.innerHTML = `
-  <div class="ship"></div>
+  <div class="ship">
+  </div>
 `
 
 let currentArrowPressed = null
@@ -108,9 +109,11 @@ setInterval(() => {
   } else if (currentArrowPressed === 'ArrowRight') {
     shipAcceleration = BASE_ACCELERATION
   } else {
-    shipAcceleration = -Math.sign(shipSpeed) * BASE_DECELERATION
-    if (Math.abs(shipSpeed) <= BASE_DECELERATION) {
+    if (Math.abs(shipSpeed) <= BASE_DECELERATION * 4) {
       shipSpeed = 0
+      shipAcceleration = 0
+    } else {
+      shipAcceleration = -Math.sign(shipSpeed) * BASE_DECELERATION
     }
   }
 
