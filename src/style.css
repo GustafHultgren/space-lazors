@@ -32,7 +32,7 @@ body,
   box-sizing: border-box;
 }
 
-.spacecraft {
+.ship {
   height: var(--ship-height);
   width: var(--ship-width);
   background: salmon;

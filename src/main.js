@@ -6,13 +6,13 @@ const SHIP_HEIGHT = getComputedStyle(root).getPropertyValue('--ship-height');
 const SHIP_WIDTH = getComputedStyle(root).getPropertyValue('--ship-width');
 const SHIP_OFFSET_Y = getComputedStyle(root).getPropertyValue('--ship-offset-y');
 
-const app = document.querySelector<HTMLDivElement>('#app')!
+const app = document.querySelector('#app')
 
 app.innerHTML = `
-  <div class="spacecraft"></div>
+  <div class="ship"></div>
 `
 
-let currentArrowPressed: 'ArrowLeft' | 'ArrowRight' | null = null
+let currentArrowPressed = null
 let isFiring = false
 
 window.addEventListener('keydown', (event) => {
@@ -54,7 +54,7 @@ let shipPos = 50
 let shipSpeed = 0
 let shipAcceleration = 0
 
-const lasers: { element: HTMLDivElement, posY: number, posX: number }[] = []
+const lasers = []
 
 let lastFire = Date.now()
 let LASER_COOLDOWN = 150
@@ -138,7 +138,7 @@ setInterval(() => {
 
   shipPos = Math.max(0, Math.min(MAX_POS, shipPos + shipSpeed))
 
-  const spacecraft = document.querySelector<HTMLDivElement>('.spacecraft')!
+  const ship = document.querySelector('.ship')
 
-  spacecraft.style.left = `calc(max(0px, min(${shipPos}vw, 100vw - 24px))`
+  ship.style.left = `calc(max(0px, min(${shipPos}vw, 100vw - 24px))`
 }, 1000 / 60 /* 60 FPS */)
