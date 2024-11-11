@@ -99,7 +99,51 @@ function drawLasers() {
   }
 }
 
+const aliens = []
+
+function spawnAlien() {
+  const element = document.createElement('div')
+  element.classList.add('alien')
+
+  const posX = Math.random() * 100
+  const posY = 100
+
+  const alien = {
+    element,
+    posX,
+    posY
+  }
+
+  aliens.push(alien)
+  app.appendChild(element)
+}
+
+const ALIEN_SPEED = 0.2
+
+
+
+function drawAliens() {
+
+  for (const alien of aliens) {
+    alien.posY -= ALIEN_SPEED
+
+    if (alien.posY <= 0) {
+      alien.element.remove()
+      aliens.splice(aliens.indexOf(alien), 1)
+    }
+
+    alien.element.style.bottom = `calc(${alien.posY}vh + ${SHIP_OFFSET_Y} + ${SHIP_HEIGHT})`
+    alien.element.style.left = `calc(${alien.posX}vw + ${SHIP_WIDTH} / 2)`
+  }
+}
+
 setInterval(() => {
+  if (Math.random() < 0.01) {
+    spawnAlien()
+  }
+
+  drawAliens()
+
   if (isFiring) {
     shootLaser()
   }

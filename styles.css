@@ -47,3 +47,15 @@ body,
   background: yellowgreen;
   position: fixed;
 }
+
+.alien {
+  height: 30px;
+  width: 30px;
+  position: fixed;
+}
+
+.alien::after
+{
+  font-size: 32px;
+  content: "👾";
+}
