@@ -136,12 +136,12 @@ function setScore(value) {
 function setHealth(value) {
   health = value
 
+  document.getElementById('health').textContent = value
+
   if (health <= 0) {
     alert('Game Over')
     location.reload()
   }
-
-  document.getElementById('health').textContent = value
 }
 
 function spawnAlien() {
