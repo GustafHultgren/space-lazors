@@ -20,7 +20,7 @@ app.innerHTML = `
   <footer>Use the arrow keys to move and space to shoot</footer>
 `
 
-let health = 100
+let health = 5
 let score = 0
 let currentArrowPressed = null
 let isFiring = false
@@ -136,11 +136,13 @@ function setScore(value) {
 function setHealth(value) {
   health = value
 
-  document.getElementById('health').textContent = value
+  document.getElementById('health').textContent = Math.max(value, 0)
 
   if (health <= 0) {
-    alert('Game Over')
-    location.reload()
+    setTimeout(() => {
+      alert('Game Over')
+      location.reload()
+    })
   }
 }
 
