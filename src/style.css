@@ -11,6 +11,10 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  --ship-height: 12px;
+  --ship-width: 24px;
+  --ship-offset-y: 50vh;
 }
 
 html,
@@ -28,12 +32,17 @@ body,
 }
 
 .spacecraft {
-  height: 12px;
-  width: 24px;
+  height: var(--ship-height);
+  width: var(--ship-width);
   background: salmon;
   position: fixed;
   left: 50vw - 6px;
-  top: 50vh;
+  bottom: var(--ship-offset-y);
+}
 
-  /* transform: translate(calc(50vw - 6px), 98vh) */
+.laser {
+  height: 12px;
+  width: 2px;
+  background: yellowgreen;
+  position: fixed;
 }
