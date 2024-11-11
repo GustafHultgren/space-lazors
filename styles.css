@@ -36,7 +36,7 @@ body,
   margin: 0;
   margin-left: 4px;
   padding: 0;
-  font-family: fantasy, sans-serif;
+  font-family: doto, sans-serif;
 }
 
 .score, .hp {
