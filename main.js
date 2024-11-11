@@ -8,6 +8,9 @@ const app = document.querySelector('#app')
 
 app.innerHTML = `
   <div class="ship">
+    <div style="transform: rotate(-45deg) translateX(-8px); position: relative;">
+     🚀
+    </div>
   </div>
 `
 
@@ -92,7 +95,7 @@ function drawLasers() {
     }
 
     laser.element.style.bottom = `calc(${laser.posY}vh + ${SHIP_OFFSET_Y} + ${SHIP_HEIGHT})`
-    laser.element.style.left = `calc(${laser.posX}vw + ${SHIP_WIDTH} / 2 - 1px)`
+    laser.element.style.left = `calc(${laser.posX}vw + ${SHIP_WIDTH} / 2)`
   }
 }
 
@@ -141,5 +144,5 @@ setInterval(() => {
 
   const ship = document.querySelector('.ship')
 
-  ship.style.left = `calc(max(0px, min(${shipPos}vw, 100vw - 24px))`
+  ship.style.left = `calc(max(0px, min(${shipPos}vw, 100vw - var(--ship-width)))`
 }, 1000 / 60 /* 60 FPS */)

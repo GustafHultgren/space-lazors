@@ -12,9 +12,9 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  --ship-height: 12px;
-  --ship-width: 24px;
-  --ship-offset-y: 50vh;
+  --ship-height: 64px;
+  --ship-width: 30px;
+  --ship-offset-y: 10vh;
 }
 
 html,
@@ -35,10 +35,10 @@ body,
 .ship {
   height: var(--ship-height);
   width: var(--ship-width);
-  background: salmon;
   position: fixed;
-  left: 50vw - 6px;
+  left: 50vw - calc(var(--ship-width) / 2 );
   bottom: var(--ship-offset-y);
+  font-size: 45px;
 }
 
 .laser {
