@@ -1,5 +1,3 @@
-import './style.css'
-
 const root = document.documentElement;
 
 const SHIP_HEIGHT = getComputedStyle(root).getPropertyValue('--ship-height');
