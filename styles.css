@@ -33,10 +33,11 @@ body,
 }
 
 .title {
-  margin: 0;
   margin-left: 4px;
+  margin-bottom: 2px;
+
   padding: 0;
-  font-family: doto, sans-serif;
+  font-family: Cherry bomb one, sans-serif;
 }
 
 .score, .hp {
