@@ -48,8 +48,7 @@ const MAX_SPEED = 10 * 0.5
 const DAMPING_FACTOR = 0.2 // Adjust this value to control the bounce effect
 const BOUNCE_THRESHOLD = 0.05
 const BASE_ACCELERATION = 0.1
-const RETURN_ACCELERATION = 0.000001
-const MIDDLE_POS = MAX_POS / 2
+const BASE_DECELERATION = 0.015
 
 let shipPos = 50
 let shipSpeed = 0
@@ -111,8 +110,10 @@ setInterval(() => {
   } else if (currentArrowPressed === 'ArrowRight') {
     shipAcceleration = BASE_ACCELERATION
   } else {
-    const distanceToMiddle = shipPos - MIDDLE_POS
-    shipAcceleration = -distanceToMiddle * RETURN_ACCELERATION
+    shipAcceleration = -Math.sign(shipSpeed) * BASE_DECELERATION
+    if (Math.abs(shipSpeed) <= BASE_DECELERATION) {
+      shipSpeed = 0
+    }
   }
 
   if (shipPos <= 0) {
